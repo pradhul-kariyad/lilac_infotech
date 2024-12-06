@@ -2,12 +2,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/auth/log_in/log_in.dart';
+import 'package:lilac_infotech/provider/login_provider/login_provider.dart';
+import 'package:lilac_infotech/provider/total_vehicles_provider/total_vehicles_provider.dart';
+import 'package:lilac_infotech/provider/total_vehicles_provider/total_vehicles_service.dart';
+import 'package:lilac_infotech/provider/vehicle_details_provider/vehicle_details_provider.dart';
 import 'package:lilac_infotech/screens/home/home_page.dart';
 import 'package:lilac_infotech/screens/requirement_screen/car_bike.dart';
 import 'package:lilac_infotech/screens/requirement_screen/requirement_screen.dart';
 import 'package:lilac_infotech/screens/total_vehicle/total_vehicle.dart';
 import 'package:lilac_infotech/screens/vehicle_details_screen/vehicle_details_screen.dart';
 import 'package:lilac_infotech/screens/vehicle_requirment/vehicle_requirment.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -23,22 +28,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (BuildContext context, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Machine-Test',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
-          ),
-          home: child,
-        );
-      },
-      child: const VehicleDetailsScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) {
+          return LoginProvider();
+        }),
+        ChangeNotifierProvider(create: (context) {
+          return TotalVehiclesProvider();
+        }),
+        ChangeNotifierProvider(create: (context) {
+          return VehicleDetailsProvider();
+        }),
+      ],
+      child: ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (BuildContext context, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Machine-Test',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
+            ),
+            home: child,
+          );
+        },
+        child: const LogIn(),
+      ),
     );
   }
 }

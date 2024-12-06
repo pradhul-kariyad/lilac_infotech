@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
+import 'package:lilac_infotech/screens/total_vehicle/total_vehicle.dart';
 
 class VehicleFirstRow extends StatelessWidget {
   const VehicleFirstRow({super.key});
@@ -14,6 +15,9 @@ class VehicleFirstRow extends StatelessWidget {
         InkWell(
           onTap: () {
             print('Back button');
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return TotalVehicle();
+            }));
           },
           child: Image(
               image: AssetImage('assets/images/arrow-left.png'),

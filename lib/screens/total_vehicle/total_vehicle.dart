@@ -37,10 +37,13 @@ class TotalVehicle extends StatelessWidget {
         child: Column(
           children: [
             SearchForm(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: MyBuilder(),
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: MyBuilder(),
+              ),
             ),
           ],
         ),
