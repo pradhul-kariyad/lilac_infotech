@@ -5,6 +5,9 @@ import 'package:lilac_infotech/core/auth/log_in/log_in.dart';
 import 'package:lilac_infotech/screens/home/home_page.dart';
 import 'package:lilac_infotech/screens/requirement_screen/car_bike.dart';
 import 'package:lilac_infotech/screens/requirement_screen/requirement_screen.dart';
+import 'package:lilac_infotech/screens/total_vehicle/total_vehicle.dart';
+import 'package:lilac_infotech/screens/vehicle_details_screen/vehicle_details_screen.dart';
+import 'package:lilac_infotech/screens/vehicle_requirment/vehicle_requirment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -35,7 +38,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: const CarBike(),
+      child: const VehicleDetailsScreen(),
     );
   }
 }

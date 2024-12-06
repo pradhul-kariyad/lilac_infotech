@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
 import 'package:lilac_infotech/core/widgets/logo/logo.dart';
 import 'package:lilac_infotech/core/widgets/my_button/my_button.dart';
-import 'package:lilac_infotech/core/widgets/my_form/email_form.dart';
-import 'package:lilac_infotech/core/widgets/my_form/password_form.dart';
+import 'package:lilac_infotech/core/widgets/my_form/email_form/email_form.dart';
+import 'package:lilac_infotech/core/widgets/my_form/password_form/password_form.dart';
 
 class LogIn extends StatelessWidget {
   const LogIn({super.key});
