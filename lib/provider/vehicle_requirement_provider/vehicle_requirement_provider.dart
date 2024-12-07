@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, file_names, unused_import
+// ignore_for_file: use_build_context_synchronously, file_names, unused_import, non_constant_identifier_names
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +10,7 @@ import 'package:lilac_infotech/screens/total_vehicle/total_vehicle.dart';
 import 'package:lilac_infotech/screens/vehicle_requirment/vehicle_requirment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginProvider extends ChangeNotifier {
+class VehicleRequirementProvider extends ChangeNotifier {
   bool isLoading = false;
 
   void setLoading(bool value) {
@@ -18,17 +18,34 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> logIn(
-      String username, String password, BuildContext context) async {
+  Future<void> vehicleRequirement(
+      dynamic vehicle_type_id,
+      dynamic brand_id,
+      dynamic vehicle_model_id,
+      dynamic vehicle_variant_id,
+      dynamic transmission_id,
+      dynamic fuel_type_id,
+      dynamic vehicle_color_id,
+      dynamic year,
+      BuildContext context) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = pref.getString('token');
     try {
       setLoading(true);
       log("Sending login request...");
 
       var response = await http.post(
-        Uri.parse('https://test.vehup.com/api/vendor-login'),
+        Uri.parse('https://test.vehup.com/api/add-requirement'),
+        headers: {'Authorization': 'Bearer $token'},
         body: {
-          'email': username,
-          'password': password,
+          'vehicle_type_id': vehicle_type_id,
+          'brand_id': brand_id,
+          'vehicle_model_id': vehicle_model_id,
+          'vehicle_variant_id': vehicle_variant_id,
+          'transmission_id': transmission_id,
+          'fuel_type_id': fuel_type_id,
+          'vehicle_color_id': vehicle_color_id,
+          'year': year,
         },
       );
 
@@ -38,7 +55,9 @@ class LoginProvider extends ChangeNotifier {
       setLoading(false);
 
       if (response.statusCode == 200) {
-        log("Log-in successful");
+        log("Vehicle requirement created");
+        log('Response body: ${response.body}');
+
         var result = jsonDecode(response.body);
         String? token = result['token'];
 
@@ -50,7 +69,7 @@ class LoginProvider extends ChangeNotifier {
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => VehicleRequirment()),
+            MaterialPageRoute(builder: (context) => HomePage()),
           );
 
           ScaffoldMessenger.of(context).showSnackBar(
@@ -58,23 +77,11 @@ class LoginProvider extends ChangeNotifier {
               backgroundColor: maroon,
               content: Center(
                 child: Text(
-                  "Welcome",
+                  "Vehicle requirement created",
                   style: TextStyle(
                       color: white, fontFamily: 'Poppins', fontSize: 12.sp),
                 ),
               ),
-            ),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: maroon,
-              content: Center(
-                  child: Text(
-                "Invalid username or password",
-                style: TextStyle(
-                    color: white, fontFamily: 'Poppins', fontSize: 12.sp),
-              )),
             ),
           );
         }

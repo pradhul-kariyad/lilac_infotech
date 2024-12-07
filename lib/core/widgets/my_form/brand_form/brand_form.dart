@@ -1,12 +1,15 @@
-// ignore_for_file: file_names, library_private_types_in_public_api
-
+// ignore_for_file: file_names, library_private_types_in_public_api, unused_import, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
+import 'package:lilac_infotech/provider/brand_provider/brand_service.dart';
+import 'package:lilac_infotech/provider/brand_provider/brand_provider.dart';
 
 class BrandForm extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
+
   const BrandForm({super.key, this.validator, this.controller});
 
   @override
@@ -14,26 +17,19 @@ class BrandForm extends StatefulWidget {
 }
 
 class _BrandFormState extends State<BrandForm> {
-  List<String> locations = [
-    'Alappuzha',
-    'Ernakulam',
-    'Idukki',
-    'Kannur',
-    'Kasaragod',
-    'Kollam',
-    'Kottayam',
-    'Kozhikode',
-    'Malappuram',
-    'Palakkad',
-    'Pathanamthitta',
-    'Thiruvananthapuram',
-    'Thrissur',
-    'Wayanad',
-  ];
-  String? selectedLocation;
+  String? selectedBrand;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+        () => Provider.of<BrandProvider>(context, listen: false).getAllPosts());
+  }
 
   @override
   Widget build(BuildContext context) {
+    final brandProvider = Provider.of<BrandProvider>(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -68,7 +64,7 @@ class _BrandFormState extends State<BrandForm> {
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: DropdownButtonFormField<String>(
             validator: widget.validator,
-            value: selectedLocation,
+            value: selectedBrand,
             hint: Text(
               'Select Brand',
               style: TextStyle(
@@ -104,19 +100,31 @@ class _BrandFormState extends State<BrandForm> {
               fontSize: 13.sp,
               fontWeight: FontWeight.w400,
             ),
-            items: locations.map((String location) {
-              return DropdownMenuItem<String>(
-                value: location,
-                child: Text(location),
-              );
-            }).toList(),
+            items: brandProvider.isloading
+                ? []
+                : brandProvider.brandModel.data?.brands
+                        ?.map((brand) => DropdownMenuItem<String>(
+                              value: brand.name,
+                              child: Text(brand.name ?? ''),
+                            ))
+                        .toList() ??
+                    [],
             onChanged: (String? newValue) {
               setState(() {
-                selectedLocation = newValue;
+                selectedBrand = newValue;
               });
             },
           ),
         ),
+        if (brandProvider.isloading)
+          Padding(
+              padding: EdgeInsets.only(top: 10.h),
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: maroon,
+                  strokeAlign: -5,
+                ),
+              )),
       ],
     );
   }

@@ -14,22 +14,7 @@ class ColorForm extends StatefulWidget {
 }
 
 class _ColorFormState extends State<ColorForm> {
-  List<String> locations = [
-    'Alappuzha',
-    'Ernakulam',
-    'Idukki',
-    'Kannur',
-    'Kasaragod',
-    'Kollam',
-    'Kottayam',
-    'Kozhikode',
-    'Malappuram',
-    'Palakkad',
-    'Pathanamthitta',
-    'Thiruvananthapuram',
-    'Thrissur',
-    'Wayanad',
-  ];
+  List<String> color = ['Black'];
   String? selectedLocation;
 
   @override
@@ -104,7 +89,7 @@ class _ColorFormState extends State<ColorForm> {
               fontSize: 13.sp,
               fontWeight: FontWeight.w400,
             ),
-            items: locations.map((String location) {
+            items: color.map((String location) {
               return DropdownMenuItem<String>(
                 value: location,
                 child: Text(location),

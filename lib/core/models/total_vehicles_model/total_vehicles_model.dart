@@ -1,4 +1,5 @@
-// ignore_for_file: unnecessary_this, unnecessary_new, prefer_collection_literals, unnecessary_question_mark
+// ignore_for_file: unnecessary_this, unnecessary_new, prefer_collection_literals
+
 class TotalVehiclesModel {
   bool? status;
   List<Data>? data;
@@ -10,13 +11,13 @@ class TotalVehiclesModel {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['status'] = this.status;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
@@ -38,15 +39,15 @@ class Data {
   String? dealPrice;
   int? isNewArrival;
   int? isPopular;
-  Null? vehicleStatus;
-  Null? isVerified;
-  Null? totalAmount;
+  String? vehicleStatus; // Changed from Null to String?
+  String? isVerified;
+  String? totalAmount;
   String? createdAt;
   String? location;
   String? kmDriven;
   int? listedDays;
   bool? isBooked;
-  Null? bookingId;
+  String? bookingId; // Changed from Null to String?
   List<Images>? images;
   VehicleType? vehicleType;
   VehicleType? fuelType;
@@ -54,34 +55,35 @@ class Data {
   VehicleType? vehicleModel;
   VehicleType? vehicleVariant;
 
-  Data(
-      {this.id,
-      this.uniqueId,
-      this.fkVehicleTypeId,
-      this.fkFuelTypeId,
-      this.fkBrandId,
-      this.fkVehicleModelId,
-      this.fkVehicleVariantId,
-      this.year,
-      this.price,
-      this.dealPrice,
-      this.isNewArrival,
-      this.isPopular,
-      this.vehicleStatus,
-      this.isVerified,
-      this.totalAmount,
-      this.createdAt,
-      this.location,
-      this.kmDriven,
-      this.listedDays,
-      this.isBooked,
-      this.bookingId,
-      this.images,
-      this.vehicleType,
-      this.fuelType,
-      this.brand,
-      this.vehicleModel,
-      this.vehicleVariant});
+  Data({
+    this.id,
+    this.uniqueId,
+    this.fkVehicleTypeId,
+    this.fkFuelTypeId,
+    this.fkBrandId,
+    this.fkVehicleModelId,
+    this.fkVehicleVariantId,
+    this.year,
+    this.price,
+    this.dealPrice,
+    this.isNewArrival,
+    this.isPopular,
+    this.vehicleStatus,
+    this.isVerified,
+    this.totalAmount,
+    this.createdAt,
+    this.location,
+    this.kmDriven,
+    this.listedDays,
+    this.isBooked,
+    this.bookingId,
+    this.images,
+    this.vehicleType,
+    this.fuelType,
+    this.brand,
+    this.vehicleModel,
+    this.vehicleVariant,
+  });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -108,27 +110,26 @@ class Data {
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {
-        images!.add(new Images.fromJson(v));
+        images!.add(Images.fromJson(v));
       });
     }
     vehicleType = json['vehicle_type'] != null
-        ? new VehicleType.fromJson(json['vehicle_type'])
+        ? VehicleType.fromJson(json['vehicle_type'])
         : null;
     fuelType = json['fuel_type'] != null
-        ? new VehicleType.fromJson(json['fuel_type'])
+        ? VehicleType.fromJson(json['fuel_type'])
         : null;
-    brand =
-        json['brand'] != null ? new VehicleType.fromJson(json['brand']) : null;
+    brand = json['brand'] != null ? VehicleType.fromJson(json['brand']) : null;
     vehicleModel = json['vehicle_model'] != null
-        ? new VehicleType.fromJson(json['vehicle_model'])
+        ? VehicleType.fromJson(json['vehicle_model'])
         : null;
     vehicleVariant = json['vehicle_variant'] != null
-        ? new VehicleType.fromJson(json['vehicle_variant'])
+        ? VehicleType.fromJson(json['vehicle_variant'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['unique_id'] = this.uniqueId;
     data['fk_vehicle_type_id'] = this.fkVehicleTypeId;
@@ -186,7 +187,7 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['fk_vehicle_details_id'] = this.fkVehicleDetailsId;
     data['image_url'] = this.imageUrl;
@@ -206,7 +207,7 @@ class VehicleType {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
     return data;

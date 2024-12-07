@@ -1,10 +1,11 @@
-// ignore_for_file: use_build_context_synchronously, unused_import
+// ignore_for_file: use_build_context_synchronously, unused_import, no_leading_underscores_for_local_identifiers
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
 import 'package:lilac_infotech/core/widgets/total_vehicle_row/total_vehicle_row.dart';
 import 'package:lilac_infotech/provider/total_vehicles_provider/total_vehicles_provider.dart';
+import 'package:lilac_infotech/screens/check_api.dart';
 import 'package:lilac_infotech/screens/vehicle_details_screen/vehicle_details_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,22 @@ class MyBuilder extends StatelessWidget {
           Provider.of<TotalVehiclesProvider>(context, listen: false);
       provider.getAllPosts();
     });
+
+    String _calculateListedDuration(String createdAt) {
+      final createdDate = DateTime.parse(createdAt);
+      final currentDate = DateTime.now();
+      final difference = currentDate.difference(createdDate);
+
+      if (difference.inDays > 0) {
+        return '${difference.inDays} days ago';
+      } else if (difference.inHours > 0) {
+        return '${difference.inHours} hours ago';
+      } else if (difference.inMinutes > 0) {
+        return '${difference.inMinutes} minutes ago';
+      } else {
+        return 'Just now';
+      }
+    }
 
     return Consumer<TotalVehiclesProvider>(
       builder: (BuildContext context, provider, Widget? child) {
@@ -34,7 +51,12 @@ class MyBuilder extends StatelessWidget {
           return Center(
             child: Text(
               'No vehicles available',
-              style: TextStyle(color: black),
+              style: TextStyle(
+                color: black,
+                fontFamily: 'Poppins',
+                fontSize: 10.sp,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           );
         }
@@ -45,12 +67,16 @@ class MyBuilder extends StatelessWidget {
             final imageUrl = vehicle.images?.isNotEmpty == true
                 ? vehicle.images![0].imageUrl
                 : null;
+            final createdAt = vehicle.createdAt ?? '';
+            final _listedDuration = _calculateListedDuration(createdAt);
 
             return GestureDetector(
               onTap: () {
-                log('id');
+                log('vehicleId');
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return VehicleDetailsScreen();
+                  return VehicleDetailsScreen(
+                    vehicleId: vehicle.id,
+                  );
                 }));
               },
               child: Container(
@@ -109,7 +135,7 @@ class MyBuilder extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Listed ${vehicle.listedDays ?? 0} days ago',
+                            "Listed ${_listedDuration.toString()}",
                             style: TextStyle(
                               color: Color(0xff6F6C7A),
                               fontFamily: 'Poppins',

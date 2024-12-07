@@ -5,14 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
 
 class TransmissionForm extends StatefulWidget {
-  const TransmissionForm({super.key});
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  const TransmissionForm({super.key, this.controller, this.validator});
 
   @override
   State<TransmissionForm> createState() => _TransmissionFormState();
 }
 
 class _TransmissionFormState extends State<TransmissionForm> {
-  String selectedTransmission = 'Automatic'; // Initial selected option
+  String selectedTransmission = 'Automatic';
 
   @override
   Widget build(BuildContext context) {

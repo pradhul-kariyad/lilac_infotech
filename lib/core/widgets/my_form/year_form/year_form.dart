@@ -14,23 +14,25 @@ class YearForm extends StatefulWidget {
 }
 
 class _YearFormState extends State<YearForm> {
-  List<String> locations = [
-    'Alappuzha',
-    'Ernakulam',
-    'Idukki',
-    'Kannur',
-    'Kasaragod',
-    'Kollam',
-    'Kottayam',
-    'Kozhikode',
-    'Malappuram',
-    'Palakkad',
-    'Pathanamthitta',
-    'Thiruvananthapuram',
-    'Thrissur',
-    'Wayanad',
+  List<String> years = [
+    '2024',
+    '2023',
+    '2022',
+    '2021',
+    '2020',
+    '2019',
+    '2018',
+    '2017',
+    '2016',
+    '2015',
+    '2014',
+    '2013',
+    '2012',
+    '2011',
+    '2010'
   ];
-  String? selectedLocation;
+
+  String? selectedYear;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +70,7 @@ class _YearFormState extends State<YearForm> {
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: DropdownButtonFormField<String>(
             validator: widget.validator,
-            value: selectedLocation,
+            value: selectedYear,
             hint: Text(
               'Select Year',
               style: TextStyle(
@@ -104,15 +106,15 @@ class _YearFormState extends State<YearForm> {
               fontSize: 13.sp,
               fontWeight: FontWeight.w400,
             ),
-            items: locations.map((String location) {
+            items: years.map((String year) {
               return DropdownMenuItem<String>(
-                value: location,
-                child: Text(location),
+                value: year,
+                child: Text(year),
               );
             }).toList(),
             onChanged: (String? newValue) {
               setState(() {
-                selectedLocation = newValue;
+                selectedYear = newValue;
               });
             },
           ),
