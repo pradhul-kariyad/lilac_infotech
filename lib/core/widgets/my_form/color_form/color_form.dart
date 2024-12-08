@@ -7,6 +7,7 @@ import 'package:lilac_infotech/core/colors/colors.dart';
 class ColorForm extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
+
   const ColorForm({super.key, this.validator, this.controller});
 
   @override
@@ -14,14 +15,37 @@ class ColorForm extends StatefulWidget {
 }
 
 class _ColorFormState extends State<ColorForm> {
-  List<String> color = ['Black'];
-  String? selectedLocation;
+  List<String> colors = ['Black', 'White', 'Red', 'Blue', 'Green'];
+  String? selectedColor;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the controller with the default value if provided
+    if (widget.controller != null) {
+      selectedColor = widget.controller?.text.isNotEmpty ?? false
+          ? widget.controller?.text
+          : null; // Set default to null if no text is provided
+    }
+  }
+
+  void _onColorChanged(String? newValue) {
+    setState(() {
+      selectedColor = newValue;
+    });
+    // Update the controller value
+    if (widget.controller != null) {
+      widget.controller?.text =
+          newValue ?? ''; // Ensure the controller text is updated
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Label for the color field
         Padding(
           padding:
               EdgeInsets.only(left: 17.w, right: 15.w, bottom: 5.h, top: 15.h),
@@ -49,18 +73,21 @@ class _ColorFormState extends State<ColorForm> {
             ],
           ),
         ),
+
+        // Dropdown for selecting color
         Container(
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: DropdownButtonFormField<String>(
             validator: widget.validator,
-            value: selectedLocation,
+            value: selectedColor,
             hint: Text(
               'Select Color',
               style: TextStyle(
-                  color: Colors.grey,
-                  fontFamily: 'Poppins',
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400),
+                color: Colors.grey,
+                fontFamily: 'Poppins',
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
+              ),
             ),
             icon: Icon(
               Icons.keyboard_arrow_down_sharp,
@@ -89,17 +116,13 @@ class _ColorFormState extends State<ColorForm> {
               fontSize: 13.sp,
               fontWeight: FontWeight.w400,
             ),
-            items: color.map((String location) {
+            items: colors.map((String color) {
               return DropdownMenuItem<String>(
-                value: location,
-                child: Text(location),
+                value: color,
+                child: Text(color),
               );
             }).toList(),
-            onChanged: (String? newValue) {
-              setState(() {
-                selectedLocation = newValue;
-              });
-            },
+            onChanged: _onColorChanged,
           ),
         ),
       ],

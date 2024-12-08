@@ -1,17 +1,24 @@
-// ignore_for_file: library_private_types_in_public_api, unused_import
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lilac_infotech/provider/total_vehicles_provider/total_vehicles_provider.dart';
+import 'package:lilac_infotech/core/colors/colors.dart';
 import 'package:lilac_infotech/provider/variant_provider/variant_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:lilac_infotech/core/colors/colors.dart';
 
 class VariantForm extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
+  final int brandId; // Added brandId as parameter
+  final int vehicleModelId; // Added vehicleModelId as parameter
 
-  const VariantForm({super.key, this.validator, this.controller});
+  const VariantForm({
+    super.key,
+    this.validator,
+    this.controller,
+    required this.vehicleModelId,
+    required this.brandId,
+  });
 
   @override
   _VariantFormState createState() => _VariantFormState();
@@ -67,13 +74,27 @@ class _VariantFormState extends State<VariantForm> {
               ? Center(
                   child: CircularProgressIndicator(
                     color: maroon,
-                    strokeAlign: -5,
                   ),
                 )
               : errorMessage != null
-                  ? Text(
-                      errorMessage!,
-                      style: TextStyle(color: maroon, fontFamily: 'Poppins'),
+                  ? Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            errorMessage!,
+                            style: TextStyle(
+                              color: maroon,
+                              fontFamily: 'Poppins',
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: _fetchVariants,
+                            child: Text("Retry"),
+                          )
+                        ],
+                      ),
                     )
                   : DropdownButtonFormField<String>(
                       validator: widget.validator,
@@ -81,10 +102,11 @@ class _VariantFormState extends State<VariantForm> {
                       hint: Text(
                         'Select Variant',
                         style: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: 'Poppins',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400),
+                          color: Colors.grey,
+                          fontFamily: 'Poppins',
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                       icon: Icon(
                         Icons.keyboard_arrow_down_sharp,
@@ -115,14 +137,14 @@ class _VariantFormState extends State<VariantForm> {
                       ),
                       items: variants
                           .map((variant) => DropdownMenuItem<String>(
-                                value: variant[
-                                    'name'], // Assuming 'name' is the field
+                                value: variant['id'].toString(),
                                 child: Text(variant['name']),
                               ))
                           .toList(),
                       onChanged: (String? newValue) {
                         setState(() {
                           selectedVariant = newValue;
+                          widget.controller?.text = newValue ?? '';
                         });
                       },
                     ),
@@ -140,7 +162,8 @@ class _VariantFormState extends State<VariantForm> {
     try {
       final provider = Provider.of<VariantProvider>(context, listen: false);
 
-      await provider.fetchVariantData(1, 2, 2);
+      // Call API with dynamic parameters (brandId, vehicleModelId)
+      await provider.fetchVariantData(widget.vehicleModelId, widget.brandId, 2);
 
       setState(() {
         variants = provider.variants;

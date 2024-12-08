@@ -7,6 +7,7 @@ import 'package:lilac_infotech/core/colors/colors.dart';
 class YearForm extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
+
   const YearForm({super.key, this.validator, this.controller});
 
   @override
@@ -14,25 +15,23 @@ class YearForm extends StatefulWidget {
 }
 
 class _YearFormState extends State<YearForm> {
-  List<String> years = [
-    '2024',
-    '2023',
-    '2022',
-    '2021',
-    '2020',
-    '2019',
-    '2018',
-    '2017',
-    '2016',
-    '2015',
-    '2014',
-    '2013',
-    '2012',
-    '2011',
-    '2010'
-  ];
-
+  late List<String> years;
   String? selectedYear;
+
+  @override
+  void initState() {
+    super.initState();
+    _generateYears();
+    // If controller has a value, set it as the selected year
+    if (widget.controller?.text.isNotEmpty ?? false) {
+      selectedYear = widget.controller?.text;
+    }
+  }
+
+  void _generateYears() {
+    final currentYear = DateTime.now().year;
+    years = List.generate(15, (index) => (currentYear - index).toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +114,7 @@ class _YearFormState extends State<YearForm> {
             onChanged: (String? newValue) {
               setState(() {
                 selectedYear = newValue;
+                widget.controller?.text = newValue ?? '';
               });
             },
           ),

@@ -112,6 +112,12 @@ class _BrandFormState extends State<BrandForm> {
             onChanged: (String? newValue) {
               setState(() {
                 selectedBrand = newValue;
+
+                // Find the selected brand's ID and assign it to the controller
+                final selectedBrandData = brandProvider.brandModel.data?.brands
+                    ?.firstWhere((brand) => brand.name == newValue);
+                widget.controller?.text =
+                    selectedBrandData?.id.toString() ?? '';
               });
             },
           ),

@@ -7,6 +7,7 @@ import 'package:lilac_infotech/core/colors/colors.dart';
 class FuelForm extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
+
   const FuelForm({super.key, this.validator, this.controller});
 
   @override
@@ -14,17 +15,41 @@ class FuelForm extends StatefulWidget {
 }
 
 class _FuelFormState extends State<FuelForm> {
-  List<String> fuel = [
+  List<String> fuelTypes = [
     'Petrol',
-    'Deisel',
+    'Diesel',
   ];
-  String? selectedLocation;
+
+  String? selectedFuel;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the controller with a default value if it has a value
+    if (widget.controller != null) {
+      // Check if the controller already has a value, if so use it to set the selectedFuel
+      selectedFuel = widget.controller?.text.isNotEmpty ?? false
+          ? widget.controller?.text
+          : null; // Default to null if not provided
+    }
+  }
+
+  void _onFuelChanged(String? newValue) {
+    setState(() {
+      selectedFuel = newValue;
+    });
+    // Update the controller value
+    if (widget.controller != null) {
+      widget.controller?.text = newValue ?? ''; // Update the controller text
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Fuel Label
         Padding(
           padding:
               EdgeInsets.only(left: 17.w, right: 15.w, bottom: 5.h, top: 15.h),
@@ -52,11 +77,13 @@ class _FuelFormState extends State<FuelForm> {
             ],
           ),
         ),
+
+        // Dropdown
         Container(
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: DropdownButtonFormField<String>(
             validator: widget.validator,
-            value: selectedLocation,
+            value: selectedFuel,
             hint: Text(
               'Select Fuel',
               style: TextStyle(
@@ -92,17 +119,13 @@ class _FuelFormState extends State<FuelForm> {
               fontSize: 13.sp,
               fontWeight: FontWeight.w400,
             ),
-            items: fuel.map((String location) {
+            items: fuelTypes.map((String fuelType) {
               return DropdownMenuItem<String>(
-                value: location,
-                child: Text(location),
+                value: fuelType,
+                child: Text(fuelType),
               );
             }).toList(),
-            onChanged: (String? newValue) {
-              setState(() {
-                selectedLocation = newValue;
-              });
-            },
+            onChanged: _onFuelChanged,
           ),
         ),
       ],

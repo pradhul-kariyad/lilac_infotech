@@ -19,20 +19,24 @@ class VehicleRequirementProvider extends ChangeNotifier {
   }
 
   Future<void> vehicleRequirement(
-      dynamic vehicle_type_id,
-      dynamic brand_id,
-      dynamic vehicle_model_id,
-      dynamic vehicle_variant_id,
-      dynamic transmission_id,
-      dynamic fuel_type_id,
-      dynamic vehicle_color_id,
-      dynamic year,
+      String vehicle_type_id, // Vehicle type ID (1 for car)
+      String brand_id,
+      String vehicle_model_id,
+      String vehicle_variant_id,
+      String transmission_id,
+      String fuel_type_id,
+      String vehicle_color_id,
+      String year,
       BuildContext context) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
+
+    // Set vehicle_type_id to '1' (for car) if not passed
+    vehicle_type_id = '1';
+
     try {
       setLoading(true);
-      log("Sending login request...");
+      log("Sending request to add vehicle requirement...");
 
       var response = await http.post(
         Uri.parse('https://test.vehup.com/api/add-requirement'),
@@ -55,63 +59,41 @@ class VehicleRequirementProvider extends ChangeNotifier {
       setLoading(false);
 
       if (response.statusCode == 200) {
-        log("Vehicle requirement created");
-        log('Response body: ${response.body}');
+        // Parse the JSON response
+        final result = jsonDecode(response.body);
 
-        var result = jsonDecode(response.body);
-        String? token = result['token'];
-
-        if (token != null) {
-          SharedPreferences pref = await SharedPreferences.getInstance();
-          await pref.setString('token', token);
-          await pref.setBool('userlogin', true);
-          log('Token stored: $token');
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => HomePage()),
-          );
-
+        if (result['status'] == true) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: maroon,
               content: Center(
                 child: Text(
-                  "Vehicle requirement created",
+                  result['message'] ??
+                      "Vehicle requirement created successfully",
                   style: TextStyle(
                       color: white, fontFamily: 'Poppins', fontSize: 12.sp),
                 ),
               ),
             ),
           );
+          // Navigate or do additional actions on success
+        } else {
+          log("API error: ${result['message']}");
+          throw Exception(result['message']);
         }
       } else {
-        var responseBody = jsonDecode(response.body);
-        String errorMessage = responseBody['error'] ?? 'Log-in failed...';
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: maroon,
-            content: Center(
-              child: Text(
-                errorMessage,
-                style: TextStyle(
-                    color: white, fontFamily: 'Poppins', fontSize: 12.sp),
-              ),
-            ),
-          ),
-        );
-
-        log("Log-in failed: $errorMessage");
+        log("Unexpected response: ${response.body}");
+        throw Exception("Unexpected error occurred (${response.statusCode}).");
       }
     } catch (e) {
-      log('Error during Log-in: $e');
+      log('Error during API call: $e');
       setLoading(false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: maroon,
           content: Center(
             child: Text(
-              "An error occurred. Please try again.",
+              "An error occurred. Please check your input or try again later.",
               style: TextStyle(
                   color: white, fontFamily: 'Poppins', fontSize: 12.sp),
             ),
