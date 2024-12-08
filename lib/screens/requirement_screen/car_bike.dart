@@ -79,7 +79,6 @@ class CarBike extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    // Show a dialog or message when the Bike button is clicked
                     showDialog(
                       context: context,
                       builder: (context) {

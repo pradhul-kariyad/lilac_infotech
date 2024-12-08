@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
 import 'package:lilac_infotech/core/widgets/my_builder/my_builder.dart';
 import 'package:lilac_infotech/core/widgets/search_form/search_form.dart';
+import 'package:lilac_infotech/screens/bottom_bar/bottom_bar.dart';
 
 class TotalVehicle extends StatelessWidget {
   const TotalVehicle({super.key});
@@ -18,6 +19,10 @@ class TotalVehicle extends StatelessWidget {
         leading: InkWell(
             onTap: () {
               print('Back button');
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) {
+                return BottomBarScreen();
+              }));
             },
             child: Image(image: AssetImage('assets/images/arrow-left.png'))),
         title: Padding(
@@ -40,7 +45,7 @@ class TotalVehicle extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: SizedBox(
-                height: 500.h,
+                height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: MyBuilder(),
               ),

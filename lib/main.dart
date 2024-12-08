@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/auth/log_in/log_in.dart';
 import 'package:lilac_infotech/provider/bottom_bar_provider/bottom_bar_provider.dart';
+import 'package:lilac_infotech/provider/password_visibility_provider/password_visibility_provider.dart';
 import 'package:lilac_infotech/provider/vehicle_requirement_provider/vehicle_requirement_provider.dart';
 import 'package:lilac_infotech/provider/brand_provider/brand_provider.dart';
 import 'package:lilac_infotech/provider/login_provider/login_provider.dart';
@@ -11,10 +12,13 @@ import 'package:lilac_infotech/provider/total_vehicles_provider/total_vehicles_s
 import 'package:lilac_infotech/provider/variant_provider/variant_provider.dart';
 import 'package:lilac_infotech/provider/vehicle_details_provider/vehicle_details_provider.dart';
 import 'package:lilac_infotech/provider/vehicle_model_provider/vehicle_model_provider.dart';
+import 'package:lilac_infotech/provider/vendor_provider/vendor_provider.dart';
 import 'package:lilac_infotech/screens/bottom_bar/bottom_bar.dart';
+import 'package:lilac_infotech/screens/empty_screen/empty_screen.dart';
 import 'package:lilac_infotech/screens/home/home_page.dart';
 import 'package:lilac_infotech/screens/requirement_screen/car_bike.dart';
 import 'package:lilac_infotech/screens/requirement_screen/requirement_screen.dart';
+import 'package:lilac_infotech/screens/splaash_screen/splaash_screen.dart';
 import 'package:lilac_infotech/screens/total_vehicle/total_vehicle.dart';
 import 'package:lilac_infotech/screens/vehicle_details_screen/vehicle_details_screen.dart';
 import 'package:lilac_infotech/screens/vehicle_requirment/vehicle_requirment.dart';
@@ -60,6 +64,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) {
           return BottomBarProvider();
         }),
+        ChangeNotifierProvider(create: (context) {
+          return VendorProvider();
+        }),
+        ChangeNotifierProvider(create: (context) {
+          return PasswordVisibilityProvider();
+        }),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 690),
@@ -76,7 +86,7 @@ class MyApp extends StatelessWidget {
             home: child,
           );
         },
-        child: userId ? BottomBarScreen() : LogIn(),
+        child: userId ? BottomBarScreen() : SplaashScreen(),
       ),
     );
   }

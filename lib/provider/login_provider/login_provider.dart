@@ -54,18 +54,56 @@ class LoginProvider extends ChangeNotifier {
             MaterialPageRoute(builder: (context) => BottomBarScreen()),
           );
 
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: maroon,
-              content: Center(
-                child: Text(
-                  "Welcome",
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text(
+                  'Welcome',
                   style: TextStyle(
-                      color: white, fontFamily: 'Poppins', fontSize: 12.sp),
+                      color: maroon,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.sp),
                 ),
-              ),
-            ),
+                content: Text(
+                  'Your Login successful...',
+                  style: TextStyle(
+                      color: maroon,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15.sp),
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'OK',
+                      style: TextStyle(
+                        color: maroon,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
           );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     backgroundColor: maroon,
+          //     content: Center(
+          //       child: Text(
+          //         "Welcome",
+          //         style: TextStyle(
+          //             color: white, fontFamily: 'Poppins', fontSize: 12.sp),
+          //       ),
+          //     ),
+          //   ),
+          // );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

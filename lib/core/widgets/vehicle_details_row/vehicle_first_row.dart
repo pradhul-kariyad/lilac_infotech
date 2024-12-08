@@ -15,7 +15,8 @@ class VehicleFirstRow extends StatelessWidget {
         InkWell(
           onTap: () {
             print('Back button');
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) {
               return TotalVehicle();
             }));
           },

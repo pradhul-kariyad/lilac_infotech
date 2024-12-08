@@ -15,25 +15,15 @@ class ColorForm extends StatefulWidget {
 }
 
 class _ColorFormState extends State<ColorForm> {
-  // Map of color names to their IDs
   final Map<String, String> colorToIdMap = {
-    'Black': '1',
+    'Blue': '1',
     'White': '2',
     'Red': '3',
-    'Blue': '4',
-    'Green': '5',
-    'Yellow': '6',
+    'Black': '4',
+    'Yellow': '5',
   };
 
-  // List of color names for the dropdown
-  final List<String> colors = [
-    'Black',
-    'White',
-    'Red',
-    'Blue',
-    'Green',
-    'Yellow'
-  ];
+  final List<String> colors = ['Blue', 'White', 'Red', 'Black', 'Yellow'];
 
   String? selectedColor;
 
@@ -41,17 +31,17 @@ class _ColorFormState extends State<ColorForm> {
   void initState() {
     super.initState();
 
-    // Initialize the selectedColor from the controller's value, if present
+    // Initialize `selectedColor` based on `controller` value
     if (widget.controller != null && widget.controller!.text.isNotEmpty) {
       selectedColor = colorToIdMap.entries
           .firstWhere(
             (entry) => entry.value == widget.controller!.text,
-            orElse: () => MapEntry('', ''),
+            orElse: () => MapEntry('', ''), // Handles unmatched cases
           )
           .key;
     }
 
-    // If no matching value is found, default to null
+    // Ensure selectedColor matches the `colors` list
     if (!colors.contains(selectedColor)) {
       selectedColor = null;
     }
@@ -62,7 +52,7 @@ class _ColorFormState extends State<ColorForm> {
       selectedColor = newValue;
     });
 
-    // Update the controller with the corresponding ID
+    // Update the controller with the selected color's ID
     if (widget.controller != null && newValue != null) {
       widget.controller!.text = colorToIdMap[newValue] ?? '';
     }
@@ -73,7 +63,6 @@ class _ColorFormState extends State<ColorForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Label for the color field
         Padding(
           padding:
               EdgeInsets.only(left: 17.w, right: 15.w, bottom: 5.h, top: 15.h),
@@ -101,8 +90,6 @@ class _ColorFormState extends State<ColorForm> {
             ],
           ),
         ),
-
-        // Dropdown for selecting color
         Container(
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: DropdownButtonFormField<String>(

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
+import 'package:lilac_infotech/screens/bottom_bar/bottom_bar.dart';
 import 'package:lilac_infotech/screens/home/home_page.dart';
 import 'package:lilac_infotech/screens/total_vehicle/total_vehicle.dart';
 import 'package:lilac_infotech/screens/vehicle_requirment/vehicle_requirment.dart';
@@ -19,7 +20,7 @@ class VehicleRequirementProvider extends ChangeNotifier {
   }
 
   Future<void> vehicleRequirement(
-      String vehicle_type_id, // Vehicle type ID (1 for car)
+      String vehicle_type_id,
       String brand_id,
       String vehicle_model_id,
       String vehicle_variant_id,
@@ -31,7 +32,6 @@ class VehicleRequirementProvider extends ChangeNotifier {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('token');
 
-    // Set vehicle_type_id to '1' (for car) if not passed
     vehicle_type_id = '1';
 
     try {
@@ -61,24 +61,66 @@ class VehicleRequirementProvider extends ChangeNotifier {
       setLoading(false);
 
       if (response.statusCode == 200) {
-        // Parse the JSON response
         final result = jsonDecode(response.body);
 
-        if (result['status'] == true) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: maroon,
-              content: Center(
-                child: Text(
-                  result['message'] ??
-                      "Vehicle requirement created successfully",
-                  style: TextStyle(
-                      color: white, fontFamily: 'Poppins', fontSize: 12.sp),
-                ),
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return BottomBarScreen();
+        }));
+
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                'Thank you',
+                style: TextStyle(
+                    color: maroon,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.sp),
               ),
-            ),
-          );
-          // Navigate or do additional actions on success
+              content: Text(
+                'Vehicle requirement created successfully...',
+                style: TextStyle(
+                    color: maroon,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 15.sp),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'OK',
+                    style: TextStyle(
+                      color: maroon,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+
+        if (result['status'] == true) {
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     backgroundColor: maroon,
+          //     content: Center(
+          //       child: Text(
+          //         result['message'] ??
+          //             "Vehicle requirement created successfully",
+          //         style: TextStyle(
+          //             color: white, fontFamily: 'Poppins', fontSize: 12.sp),
+          //       ),
+          //     ),
+          //   ),
+          // );
         } else {
           log("API error: ${result['message']}");
           throw Exception(result['message']);
@@ -95,7 +137,7 @@ class VehicleRequirementProvider extends ChangeNotifier {
           backgroundColor: maroon,
           content: Center(
             child: Text(
-              "An error occurred. Please check your input or try again later.",
+              "Please check your input or try again later.",
               style: TextStyle(
                   color: white, fontFamily: 'Poppins', fontSize: 12.sp),
             ),

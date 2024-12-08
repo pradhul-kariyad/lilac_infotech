@@ -58,8 +58,8 @@ class _LogInState extends State<LogIn> {
               PasswordForm(
                 controller: _passwordController,
                 validator: (value) {
-                  return value!.length < 6
-                      ? 'Must be at least 6 character'
+                  return value!.length < 8
+                      ? 'Must be at least 8 character'
                       : null;
                 },
                 // onSaved: (value) {},
