@@ -76,6 +76,7 @@ class MyBuilder extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return VehicleDetailsScreen(
                     vehicleId: vehicle.id,
+                    name: vehicle.brand?.name ?? 'Car',
                   );
                 }));
               },
@@ -110,7 +111,7 @@ class MyBuilder extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 10.w, top: 10.h),
                       child: Text(
-                        vehicle.brand?.name ?? 'Brand Unknown',
+                        vehicle.brand?.name ?? 'Car',
                         style: TextStyle(
                           color: black,
                           fontFamily: 'Poppins',

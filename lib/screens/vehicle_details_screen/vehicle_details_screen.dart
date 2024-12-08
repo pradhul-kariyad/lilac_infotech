@@ -14,14 +14,16 @@ import 'package:lilac_infotech/provider/vehicle_details_provider/vehicle_details
 import 'package:provider/provider.dart';
 
 class VehicleDetailsScreen extends StatefulWidget {
+  final String name;
   final dynamic vehicleId;
-  const VehicleDetailsScreen({super.key, this.vehicleId});
+  const VehicleDetailsScreen({super.key, this.vehicleId, required this.name});
 
   @override
   State<VehicleDetailsScreen> createState() => _VehicleDetailsScreenState();
 }
 
 class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
+  String? selectedImageUrl;
   @override
   void initState() {
     super.initState();
@@ -87,9 +89,9 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
             );
           }
 
-          final name = vehicleData['vehicle_type'] != null
-              ? vehicleData['vehicle_type']['name'] ?? 'Name not available'
-              : vehicleData['name'] ?? 'Name not available';
+          // final name = vehicleData['vehicle_type'] != null
+          //     ? vehicleData['vehicle_type']['name'] ?? 'Name not available'
+          //     : vehicleData['name'] ?? 'Name not available';
           final price = vehicleData['price'] ?? 'Not available';
           final color = vehicleData['color'] ?? 'Black';
           final year = vehicleData['year'] ?? 'Year not available';
@@ -109,14 +111,18 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
                 orElse: () => {'info_details': 'No owner data available'},
               )['info_details'] ??
               'No owner data available';
-          final imageUrl = (vehicleData['images'] as List?)?.isNotEmpty == true
-              ? vehicleData['images'][0]['image_url']
-              : null;
           final engineCc = vehicleData['engine_cc'] ?? 'Not available';
           final insuranceValidity =
               vehicleData['insurance_validity'] ?? 'Not available';
           final createdAt = vehicleData['created_at'] ?? '';
           final _listedDuration = _calculateListedDuration(createdAt);
+
+          final initialImageUrl =
+              (vehicleData['images'] as List?)?.isNotEmpty == true
+                  ? vehicleData['images'][0]['image_url']
+                  : null;
+
+          final displayImageUrl = selectedImageUrl ?? initialImageUrl;
 
           return Stack(
             children: [
@@ -130,8 +136,8 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
                       height: 295.h,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: imageUrl != null
-                              ? NetworkImage(imageUrl)
+                          image: displayImageUrl != null
+                              ? NetworkImage(displayImageUrl)
                               : AssetImage('assets/images/Rectangle 30.png')
                                   as ImageProvider,
                           fit: BoxFit.cover,
@@ -153,7 +159,26 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
                 child: SizedBox(
                   height: 50.h,
                   width: 55.w,
-                  child: VehicleSecondRow(),
+                  child: VehicleSecondRow(onImageSelected: updateSelectedImage),
+                ),
+              ),
+              Positioned(
+                top: 210.h,
+                left: 20.w,
+                // right: 0.w,
+                child: Container(
+                  width: 55.w,
+                  height: 50.h,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1.w, color: white),
+                    image: DecorationImage(
+                      image: displayImageUrl != null
+                          ? NetworkImage(displayImageUrl)
+                          : AssetImage('assets/images/Rectangle 30.png')
+                              as ImageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
               Positioned(
@@ -184,7 +209,7 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      name,
+                                      widget.name,
                                       style: TextStyle(
                                           color: black,
                                           fontFamily: 'Poppins',
@@ -541,5 +566,11 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
         },
       ),
     );
+  }
+
+  void updateSelectedImage(String? newImageUrl) {
+    setState(() {
+      selectedImageUrl = newImageUrl;
+    });
   }
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, file_names, unused_import, non_constant_identifier_names
+// ignore_for_file: use_build_context_synchronously, file_names, unused_import, non_constant_identifier_names, unnecessary_brace_in_string_interps
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,6 +37,8 @@ class VehicleRequirementProvider extends ChangeNotifier {
     try {
       setLoading(true);
       log("Sending request to add vehicle requirement...");
+
+      log('VehicleRequirement : $vehicle_type_id, $brand_id, $vehicle_model_id, $vehicle_variant_id, $transmission_id, $fuel_type_id, $vehicle_color_id, $year');
 
       var response = await http.post(
         Uri.parse('https://test.vehup.com/api/add-requirement'),

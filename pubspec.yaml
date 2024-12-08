@@ -41,6 +41,7 @@ dependencies:
   shared_preferences: ^2.3.3
   http: ^1.2.2
   intl: ^0.20.1
+  stylish_bottom_bar: ^1.1.0
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
+import 'package:lilac_infotech/screens/requirement_screen/requirement_screen.dart';
 
 class CarBike extends StatelessWidget {
   const CarBike({super.key});
@@ -38,59 +39,112 @@ class CarBike extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 157.w,
-                  height: 90.h,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.sp), color: white),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 18.h),
-                      Image(
-                        image: AssetImage('assets/images/Group (4).png'),
-                        width: 50.w,
-                        height: 30.h,
-                      ),
-                      SizedBox(height: 2.h),
-                      Text(
-                        'Car',
-                        style: TextStyle(
-                            color: maroon,
-                            fontFamily: 'Poppins',
-                            fontSize: 11.sp,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return RequirementScreen();
+                    }));
+                  },
+                  child: Container(
+                    width: 157.w,
+                    height: 90.h,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.sp),
+                        color: white),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 18.h),
+                        Image(
+                          image: AssetImage('assets/images/Group (4).png'),
+                          width: 50.w,
+                          height: 30.h,
+                        ),
+                        SizedBox(height: 2.h),
+                        Text(
+                          'Car',
+                          style: TextStyle(
+                              color: maroon,
+                              fontFamily: 'Poppins',
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(
                   width: 15.w,
                 ),
-                Container(
-                  width: 157.w,
-                  height: 90.h,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.sp), color: white),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 18.h),
-                      Image(
-                        image: AssetImage('assets/images/Group (5).png'),
-                        width: 50.w,
-                        height: 30.h,
-                      ),
-                      SizedBox(height: 2.h),
-                      Text(
-                        'Bike',
-                        style: TextStyle(
-                            color: maroon,
-                            fontFamily: 'Poppins',
-                            fontSize: 11.sp,
-                            fontWeight: FontWeight.bold),
-                      )
-                    ],
+                InkWell(
+                  onTap: () {
+                    // Show a dialog or message when the Bike button is clicked
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text(
+                            'Bike Unavailable',
+                            style: TextStyle(
+                                color: maroon,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.sp),
+                          ),
+                          content: Text(
+                            'Bike is not available. Please select Car.',
+                            style: TextStyle(
+                                color: maroon,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15.sp),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                'OK',
+                                style: TextStyle(
+                                  color: maroon,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: 157.w,
+                    height: 90.h,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.sp),
+                        color: white),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 18.h),
+                        Image(
+                          image: AssetImage('assets/images/Group (5).png'),
+                          width: 50.w,
+                          height: 30.h,
+                        ),
+                        SizedBox(height: 2.h),
+                        Text(
+                          'Bike',
+                          style: TextStyle(
+                              color: maroon,
+                              fontFamily: 'Poppins',
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -9,8 +11,8 @@ import 'package:provider/provider.dart';
 class ModelForm extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
-  final int brandId; // Added brandId as parameter
-  final int vehicleTypeId; // Added vehicleTypeId as parameter
+  final int brandId; 
+  final int vehicleTypeId; 
 
   const ModelForm({
     super.key,
@@ -30,7 +32,7 @@ class _ModelFormState extends State<ModelForm> {
   @override
   void initState() {
     super.initState();
-    // Fetch models when widget is initialized
+    
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<VehicleModelProvider>(context, listen: false)
           .fetchModelData(widget.vehicleTypeId, widget.brandId);
@@ -140,9 +142,9 @@ class _ModelFormState extends State<ModelForm> {
                         setState(() {
                           selectedModel = newValue;
                           widget.controller?.text = newValue ??
-                              ''; // Ensure the controller gets the selected model value
+                              ''; 
                         });
-                        log('Selected Model ID: $selectedModel'); // Log to check if the value is correct
+                        log('Selected Model ID: $selectedModel'); 
                       },
                     ),
         ),

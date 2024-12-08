@@ -15,17 +15,45 @@ class ColorForm extends StatefulWidget {
 }
 
 class _ColorFormState extends State<ColorForm> {
-  List<String> colors = ['Black', 'White', 'Red', 'Blue', 'Green'];
+  // Map of color names to their IDs
+  final Map<String, String> colorToIdMap = {
+    'Black': '1',
+    'White': '2',
+    'Red': '3',
+    'Blue': '4',
+    'Green': '5',
+    'Yellow': '6',
+  };
+
+  // List of color names for the dropdown
+  final List<String> colors = [
+    'Black',
+    'White',
+    'Red',
+    'Blue',
+    'Green',
+    'Yellow'
+  ];
+
   String? selectedColor;
 
   @override
   void initState() {
     super.initState();
-    // Initialize the controller with the default value if provided
-    if (widget.controller != null) {
-      selectedColor = widget.controller?.text.isNotEmpty ?? false
-          ? widget.controller?.text
-          : null; // Set default to null if no text is provided
+
+    // Initialize the selectedColor from the controller's value, if present
+    if (widget.controller != null && widget.controller!.text.isNotEmpty) {
+      selectedColor = colorToIdMap.entries
+          .firstWhere(
+            (entry) => entry.value == widget.controller!.text,
+            orElse: () => MapEntry('', ''),
+          )
+          .key;
+    }
+
+    // If no matching value is found, default to null
+    if (!colors.contains(selectedColor)) {
+      selectedColor = null;
     }
   }
 
@@ -33,10 +61,10 @@ class _ColorFormState extends State<ColorForm> {
     setState(() {
       selectedColor = newValue;
     });
-    // Update the controller value
-    if (widget.controller != null) {
-      widget.controller?.text =
-          newValue ?? ''; // Ensure the controller text is updated
+
+    // Update the controller with the corresponding ID
+    if (widget.controller != null && newValue != null) {
+      widget.controller!.text = colorToIdMap[newValue] ?? '';
     }
   }
 

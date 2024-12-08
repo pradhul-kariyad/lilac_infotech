@@ -40,7 +40,7 @@ class TotalVehicle extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: SizedBox(
-                height: MediaQuery.of(context).size.height,
+                height: 500.h,
                 width: MediaQuery.of(context).size.width,
                 child: MyBuilder(),
               ),

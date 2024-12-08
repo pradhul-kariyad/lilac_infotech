@@ -113,7 +113,7 @@ class _BrandFormState extends State<BrandForm> {
               setState(() {
                 selectedBrand = newValue;
 
-                // Find the selected brand's ID and assign it to the controller
+               
                 final selectedBrandData = brandProvider.brandModel.data?.brands
                     ?.firstWhere((brand) => brand.name == newValue);
                 widget.controller?.text =
@@ -126,10 +126,8 @@ class _BrandFormState extends State<BrandForm> {
           Padding(
               padding: EdgeInsets.only(top: 10.h),
               child: Center(
-                child: CircularProgressIndicator(
-                  color: maroon,
-                  strokeAlign: -5,
-                ),
+                child:
+                    CircularProgressIndicator(color: maroon, strokeAlign: -5),
               )),
       ],
     );

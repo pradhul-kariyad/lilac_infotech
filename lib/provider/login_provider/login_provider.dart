@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
+import 'package:lilac_infotech/screens/bottom_bar/bottom_bar.dart';
 import 'package:lilac_infotech/screens/home/home_page.dart';
 import 'package:lilac_infotech/screens/total_vehicle/total_vehicle.dart';
 import 'package:lilac_infotech/screens/vehicle_requirment/vehicle_requirment.dart';
@@ -50,7 +51,7 @@ class LoginProvider extends ChangeNotifier {
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => VehicleRequirment()),
+            MaterialPageRoute(builder: (context) => BottomBarScreen()),
           );
 
           ScaffoldMessenger.of(context).showSnackBar(

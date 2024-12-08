@@ -28,9 +28,11 @@ class _FuelFormState extends State<FuelForm> {
     // Initialize the controller with a default value if it has a value
     if (widget.controller != null) {
       // Check if the controller already has a value, if so use it to set the selectedFuel
-      selectedFuel = widget.controller?.text.isNotEmpty ?? false
-          ? widget.controller?.text
-          : null; // Default to null if not provided
+      selectedFuel = widget.controller?.text == '1'
+          ? 'Petrol'
+          : widget.controller?.text == '2'
+              ? 'Diesel'
+              : null; // Default to null if not provided
     }
   }
 
@@ -38,9 +40,9 @@ class _FuelFormState extends State<FuelForm> {
     setState(() {
       selectedFuel = newValue;
     });
-    // Update the controller value
+    // Update the controller value with corresponding numeric value
     if (widget.controller != null) {
-      widget.controller?.text = newValue ?? ''; // Update the controller text
+      widget.controller?.text = newValue == 'Petrol' ? '1' : '2';
     }
   }
 

@@ -14,6 +14,7 @@ import 'package:lilac_infotech/core/widgets/my_form/variant_form/variant_form.da
 import 'package:lilac_infotech/core/widgets/my_form/year_form/year_form.dart';
 import 'package:lilac_infotech/provider/brand_provider/brand_provider.dart';
 import 'package:lilac_infotech/provider/vehicle_requirement_provider/vehicle_requirement_provider.dart';
+import 'package:lilac_infotech/screens/requirement_screen/requirement_screen.dart';
 import 'package:provider/provider.dart';
 // import 'package:provider/provider.dart';
 
@@ -25,14 +26,6 @@ class VehicleRequirment extends StatefulWidget {
 }
 
 class _VehicleRequirmentState extends State<VehicleRequirment> {
-  final _brandController = TextEditingController();
-  final _modelController = TextEditingController();
-  final _variantController = TextEditingController();
-  final _yearController = TextEditingController();
-  final _transmissionController = TextEditingController();
-  final _fuelController = TextEditingController();
-  final _colorController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -42,6 +35,14 @@ class _VehicleRequirmentState extends State<VehicleRequirment> {
 
   @override
   Widget build(BuildContext context) {
+    final _brandController = TextEditingController();
+    final _modelController = TextEditingController();
+    final _variantController = TextEditingController();
+    final _yearController = TextEditingController();
+    final _transmissionController = TextEditingController();
+    final _fuelController = TextEditingController();
+    final _colorController = TextEditingController();
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: scaffoldColor,
       appBar: AppBar(
@@ -50,6 +51,10 @@ class _VehicleRequirmentState extends State<VehicleRequirment> {
         leading: InkWell(
             onTap: () {
               print('Back button');
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) {
+                return RequirementScreen();
+              }));
             },
             child: Image(image: AssetImage('assets/images/arrow-left.png'))),
         title: Padding(
@@ -66,117 +71,111 @@ class _VehicleRequirmentState extends State<VehicleRequirment> {
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BrandForm(
-                controller: _brandController,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BrandForm(
+                  controller: _brandController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select a brand';
+                    }
+                    return null;
+                  }),
+              ModelForm(
+                controller: _modelController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Enter your location';
+                    return 'Please select a model';
                   }
                   return null;
-                }),
-            ModelForm(
-              controller: _modelController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Enter your location';
-                }
-                return null;
-              },
-              vehicleTypeId: 1,
-              brandId: 2,
-            ),
-            VariantForm(
-              controller: _variantController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please select a variant';
-                }
-                return null;
-              },
-              vehicleModelId: 1,
-              brandId: 2,
-            ),
-            YearForm(
-                controller: _yearController,
+                },
+                vehicleTypeId: 1,
+                brandId: 2,
+              ),
+              VariantForm(
+                controller: _variantController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please select a year';
+                    return 'Please select a variant';
                   }
                   return null;
-                }),
-            TransmissionForm(
-              controller: _transmissionController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Please select a transmission type";
-                }
-                return null;
-              },
-            ),
-            FuelForm(
-                controller: _fuelController,
+                },
+                vehicleModelId: 1,
+                brandId: 2,
+              ),
+              YearForm(
+                  controller: _yearController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select a year';
+                    }
+                    return null;
+                  }),
+              TransmissionForm(
+                controller: _transmissionController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please select a fuel type';
+                    return "Please select a transmission type";
                   }
                   return null;
-                }),
-            ColorForm(
-                controller: _colorController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please select a color';
-                  }
-                  return null;
-                }),
-            SizedBox(height: 15.h),
-            Consumer<VehicleRequirementProvider>(
-              builder: (BuildContext context,
-                  VehicleRequirementProvider provider, Widget? child) {
-                final brandProvider =
-                    Provider.of<BrandProvider>(context, listen: false);
-                final brands = brandProvider.brandModel.data?.brands;
+                },
+              ),
+              FuelForm(
+                  controller: _fuelController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select a fuel type';
+                    }
+                    return null;
+                  }),
+              ColorForm(
+                  controller: _colorController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please select a color';
+                    }
+                    return null;
+                  }),
+              SizedBox(height: 15.h),
+              Consumer<VehicleRequirementProvider>(
+                builder: (BuildContext context,
+                    VehicleRequirementProvider provider, Widget? child) {
+                  return MyButton(
+                    name: 'Submit',
+                    onTap: () {
+                      print('Submit');
 
-                // Safely access the brand ID
-                final brandId =
-                    (brands != null && brands.isNotEmpty) ? brands[0].id : null;
-
-                return MyButton(
-                  name: 'Submit',
-                  onTap: () {
-                    print('Submit');
-                    log(brandId.toString());
-                    // if (brandId != null) {
-                    print('Submit');
-                    log(brandId.toString());
-                    log('_variantController :  ${_variantController.text.toString()}');
-                    log('_brandController :  ${_brandController.text.toString()}');
-                    log('_modelController :  ${_modelController.text.toString()}');
-
-                    provider.vehicleRequirement(
-                      '1', // vehicle_type_id for Car
-                      _brandController.text.toString(), // Brand ID
-                      _modelController.text.toString(), // Model ID
-                      _variantController.text.toString(), // Variant ID
-                      '2', // Transmission ID
-                      '1', // Fuel Type ID
-                      '1', // Color ID
-                      '2024', // Year
-                      context,
-                    );
-                    // } else {
-                    //   // Show an error message if brand ID is not found
-                    //   print('Error: Brand ID is null');
-                    // }
-                  },
-                );
-              },
-            ),
-            SizedBox(height: 15.h),
-          ],
+                      if (_formKey.currentState!.validate()) {
+                        provider.vehicleRequirement(
+                          '1',
+                          _brandController.text.toString(),
+                          _modelController.text.toString(),
+                          _variantController.text.toString(),
+                          _transmissionController.text.toString(),
+                          _fuelController.text.toString(),
+                          _colorController.text.toString(),
+                          _yearController.text.toString(),
+                          context,
+                        );
+                        log('brand :  ${_brandController.text.toString()}');
+                        log('model :  ${_modelController.text.toString()}');
+                        log('variant :  ${_variantController.text.toString()}');
+                        log('transmission :  ${_transmissionController.text.toString()}');
+                        log('fuel :  ${_fuelController.text.toString()}');
+                        log('color :  ${_colorController.text.toString()}');
+                        log('year :  ${_yearController.text.toString()}');
+                        log('brand :  ${_brandController.text.toString()}');
+                      }
+                    },
+                  );
+                },
+              ),
+              SizedBox(height: 15.h),
+            ],
+          ),
         ),
       ),
     );

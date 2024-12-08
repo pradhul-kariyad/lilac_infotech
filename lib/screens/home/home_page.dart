@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
 import 'package:lilac_infotech/core/widgets/home_row/home_row.dart';
 import 'package:lilac_infotech/main.dart';
+import 'package:lilac_infotech/screens/total_vehicle/total_vehicle.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -37,11 +38,19 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: Row(
                 children: [
-                  HomeRow(
-                    img: 'assets/images/fi_2962303.png',
-                    count: '100',
-                    name: 'Total Vehicle',
-                    color: Color(0xff36B3CE),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return TotalVehicle();
+                      }));
+                    },
+                    child: HomeRow(
+                      img: 'assets/images/fi_2962303.png',
+                      count: '100',
+                      name: 'Total Vehicle',
+                      color: Color(0xff36B3CE),
+                    ),
                   ),
                   SizedBox(width: 15.w),
                   HomeRow(

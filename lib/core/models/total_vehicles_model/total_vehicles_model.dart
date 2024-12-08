@@ -17,7 +17,7 @@ class TotalVehiclesModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = this.status;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
@@ -39,15 +39,15 @@ class Data {
   String? dealPrice;
   int? isNewArrival;
   int? isPopular;
-  String? vehicleStatus; // Changed from Null to String?
-  String? isVerified;
+  String? vehicleStatus; // Changed to handle type conversion
+  String? isVerified; // Changed to handle type conversion
   String? totalAmount;
   String? createdAt;
   String? location;
   String? kmDriven;
   int? listedDays;
   bool? isBooked;
-  String? bookingId; // Changed from Null to String?
+  String? bookingId; // Changed to handle type conversion
   List<Images>? images;
   VehicleType? vehicleType;
   VehicleType? fuelType;
@@ -93,20 +93,21 @@ class Data {
     fkBrandId = json['fk_brand_id'];
     fkVehicleModelId = json['fk_vehicle_model_id'];
     fkVehicleVariantId = json['fk_vehicle_variant_id'];
-    year = json['year'];
-    price = json['price'];
-    dealPrice = json['deal_price'];
+    year = json['year']?.toString();
+    price = json['price']?.toString();
+    dealPrice = json['deal_price']?.toString();
     isNewArrival = json['is_new_arrival'];
     isPopular = json['is_popular'];
-    vehicleStatus = json['vehicle_status'];
-    isVerified = json['is_verified'];
-    totalAmount = json['total_amount'];
+    vehicleStatus =
+        json['vehicle_status']?.toString(); // Handle type conversion
+    isVerified = json['is_verified']?.toString(); // Handle type conversion
+    totalAmount = json['total_amount']?.toString();
     createdAt = json['created_at'];
     location = json['location'];
-    kmDriven = json['km_driven'];
+    kmDriven = json['km_driven']?.toString();
     listedDays = json['listed_days'];
     isBooked = json['is_booked'];
-    bookingId = json['booking_id'];
+    bookingId = json['booking_id']?.toString(); // Handle type conversion
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {
@@ -129,7 +130,7 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = this.id;
     data['unique_id'] = this.uniqueId;
     data['fk_vehicle_type_id'] = this.fkVehicleTypeId;
@@ -187,7 +188,7 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = this.id;
     data['fk_vehicle_details_id'] = this.fkVehicleDetailsId;
     data['image_url'] = this.imageUrl;
@@ -207,7 +208,7 @@ class VehicleType {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = this.id;
     data['name'] = this.name;
     return data;

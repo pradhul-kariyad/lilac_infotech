@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
 import 'package:lilac_infotech/core/widgets/my_button/my_button.dart';
+import 'package:lilac_infotech/screens/requirement_screen/car_bike.dart';
+import 'package:lilac_infotech/screens/vehicle_requirment/vehicle_requirment.dart';
 
 class RequirementScreen extends StatefulWidget {
   const RequirementScreen({super.key});
@@ -23,6 +25,10 @@ class _RequirementScreenState extends State<RequirementScreen> {
         leading: InkWell(
             onTap: () {
               print('Back button');
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) {
+                return CarBike();
+              }));
             },
             child: Image(image: AssetImage('assets/images/arrow-left.png'))),
         title: Padding(
@@ -169,6 +175,9 @@ class _RequirementScreenState extends State<RequirementScreen> {
           MyButton(
               name: '+ Create A Requirement',
               onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return VehicleRequirment();
+                }));
                 print('Create A Requirement');
               }),
           SizedBox(height: 15.h)

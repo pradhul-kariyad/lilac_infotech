@@ -20,18 +20,15 @@ class _TransmissionFormState extends State<TransmissionForm> {
   @override
   void initState() {
     super.initState();
-    // Initialize the controller with the default value if it has a value
+    // Initialize the controller with the default value
     if (widget.controller != null) {
-      // Check if the controller has a text value
       if (widget.controller!.text.isNotEmpty) {
-        selectedTransmission = widget.controller!.text;
+        selectedTransmission =
+            widget.controller!.text == '1' ? 'Automatic' : 'Manual';
       } else {
-        widget.controller!.text =
-            selectedTransmission; // Default value assignment
+        selectedTransmission = 'Automatic';
+        widget.controller!.text = '1'; // Default value for Automatic
       }
-    } else {
-      widget.controller?.text =
-          selectedTransmission; // Default value assignment if no controller
     }
   }
 
@@ -40,9 +37,9 @@ class _TransmissionFormState extends State<TransmissionForm> {
       selectedTransmission = transmission;
     });
 
-    // Update the controller value
+    // Update the controller value with corresponding numeric value
     if (widget.controller != null) {
-      widget.controller!.text = transmission;
+      widget.controller!.text = transmission == 'Automatic' ? '1' : '2';
     }
   }
 

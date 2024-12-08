@@ -1,5 +1,6 @@
-import 'dart:developer';
+// ignore_for_file: library_private_types_in_public_api
 
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
@@ -9,8 +10,8 @@ import 'package:provider/provider.dart';
 class VariantForm extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
-  final int brandId; // Added brandId as parameter
-  final int vehicleModelId; // Added vehicleModelId as parameter
+  final int brandId;
+  final int vehicleModelId;
 
   const VariantForm({
     super.key,
@@ -34,6 +35,11 @@ class _VariantFormState extends State<VariantForm> {
   void initState() {
     super.initState();
     _fetchVariants();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -72,9 +78,8 @@ class _VariantFormState extends State<VariantForm> {
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: isLoading
               ? Center(
-                  child: CircularProgressIndicator(
-                    color: maroon,
-                  ),
+                  child:
+                      CircularProgressIndicator(color: maroon, strokeAlign: -5),
                 )
               : errorMessage != null
                   ? Center(
@@ -91,7 +96,7 @@ class _VariantFormState extends State<VariantForm> {
                           ),
                           ElevatedButton(
                             onPressed: _fetchVariants,
-                            child: Text("Retry"),
+                            child: const Text("Retry"),
                           )
                         ],
                       ),
@@ -162,14 +167,16 @@ class _VariantFormState extends State<VariantForm> {
     try {
       final provider = Provider.of<VariantProvider>(context, listen: false);
 
-      // Call API with dynamic parameters (brandId, vehicleModelId)
       await provider.fetchVariantData(widget.vehicleModelId, widget.brandId, 2);
 
+      if (!mounted) return;
       setState(() {
         variants = provider.variants;
         isLoading = false;
       });
     } catch (e) {
+      if (!mounted) return;
+
       setState(() {
         isLoading = false;
         errorMessage = "Error fetching variant data: $e";
