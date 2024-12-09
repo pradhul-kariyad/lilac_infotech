@@ -13,7 +13,7 @@ import 'package:lilac_infotech/provider/variant_provider/variant_provider.dart';
 import 'package:lilac_infotech/provider/vehicle_details_provider/vehicle_details_provider.dart';
 import 'package:lilac_infotech/provider/vehicle_model_provider/vehicle_model_provider.dart';
 import 'package:lilac_infotech/provider/vendor_provider/vendor_provider.dart';
-import 'package:lilac_infotech/screens/bottom_bar/bottom_ba.dart';
+import 'package:lilac_infotech/screens/bottom_bar/bottom_bar.dart';
 import 'package:lilac_infotech/screens/empty_screen/empty_screen.dart';
 import 'package:lilac_infotech/screens/home/home_page.dart';
 import 'package:lilac_infotech/screens/requirement_screen/car_or_bike_screen.dart';

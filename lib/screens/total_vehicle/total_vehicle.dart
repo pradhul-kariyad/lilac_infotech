@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
 import 'package:lilac_infotech/core/widgets/my_builder/my_builder.dart';
 import 'package:lilac_infotech/core/widgets/search_form/search_form.dart';
-import 'package:lilac_infotech/screens/bottom_bar/bottom_ba.dart';
+import 'package:lilac_infotech/screens/bottom_bar/bottom_bar.dart';
 
 class TotalVehicle extends StatelessWidget {
   const TotalVehicle({super.key});
