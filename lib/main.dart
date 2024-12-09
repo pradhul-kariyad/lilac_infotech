@@ -16,7 +16,7 @@ import 'package:lilac_infotech/provider/vendor_provider/vendor_provider.dart';
 import 'package:lilac_infotech/screens/bottom_bar/bottom_bar.dart';
 import 'package:lilac_infotech/screens/empty_screen/empty_screen.dart';
 import 'package:lilac_infotech/screens/home/home_page.dart';
-import 'package:lilac_infotech/screens/requirement_screen/car_bike.dart';
+import 'package:lilac_infotech/screens/requirement_screen/car_or_bike_screen.dart';
 import 'package:lilac_infotech/screens/requirement_screen/requirement_screen.dart';
 import 'package:lilac_infotech/screens/splaash_screen/splaash_screen.dart';
 import 'package:lilac_infotech/screens/total_vehicle/total_vehicle.dart';

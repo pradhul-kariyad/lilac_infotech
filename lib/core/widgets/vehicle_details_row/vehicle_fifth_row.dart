@@ -38,7 +38,7 @@ class VehicleFifthRow extends StatelessWidget {
         ),
         Divider(
           color: Color(0xffEBEBEB),
-        )
+        ),
       ],
     );
   }

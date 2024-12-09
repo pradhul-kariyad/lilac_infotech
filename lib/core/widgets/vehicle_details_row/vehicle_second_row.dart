@@ -32,7 +32,6 @@ class VehicleSecondRow extends StatelessWidget {
 
         final images = (vehicleDetails['data']?['images'] as List?) ?? [];
         final fallbackImage = 'assets/images/Rectangle 30.png';
-
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: images.isNotEmpty ? images.length : 1,

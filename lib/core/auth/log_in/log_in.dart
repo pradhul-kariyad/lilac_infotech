@@ -47,11 +47,7 @@ class _LogInState extends State<LogIn> {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
                   }
-                  // String pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
-                  // RegExp regExp = RegExp(pattern);
-                  // if (!regExp.hasMatch(value)) {
-                  //   return 'Enter a valid email';
-                  // }
+
                   return null;
                 },
               ),
@@ -62,7 +58,6 @@ class _LogInState extends State<LogIn> {
                       ? 'Must be at least 8 character'
                       : null;
                 },
-                // onSaved: (value) {},
               ),
               Padding(
                 padding: EdgeInsets.only(right: 15.w, top: 8.h, bottom: 180.h),

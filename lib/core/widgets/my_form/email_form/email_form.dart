@@ -11,7 +11,6 @@ class EmailForm extends StatelessWidget {
     super.key,
     this.validator,
     this.controller,
-    // required Null Function(dynamic value) onSaved,
   });
 
   @override
@@ -37,7 +36,6 @@ class EmailForm extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: TextFormField(
                 validator: validator,
-                // obscureText: obscureText,
                 controller: controller,
                 decoration: InputDecoration(
                   prefixIcon: Icon(

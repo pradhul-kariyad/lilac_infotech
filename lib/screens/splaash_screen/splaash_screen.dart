@@ -32,13 +32,6 @@ class SplaashScreen extends StatelessWidget {
                       fit: BoxFit.scaleDown)),
             ),
           )
-          // Center(
-          //   child: Image(
-          //     image: AssetImage('assets/images/Vector (11).png'),
-          //     width: 200.w,
-          //     height: 80.h,
-          //   ),
-          // )
         ],
       ),
     );

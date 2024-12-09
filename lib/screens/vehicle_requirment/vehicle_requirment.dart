@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers, use_build_context_synchronously
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
@@ -16,7 +15,6 @@ import 'package:lilac_infotech/provider/brand_provider/brand_provider.dart';
 import 'package:lilac_infotech/provider/vehicle_requirement_provider/vehicle_requirement_provider.dart';
 import 'package:lilac_infotech/screens/requirement_screen/requirement_screen.dart';
 import 'package:provider/provider.dart';
-// import 'package:provider/provider.dart';
 
 class VehicleRequirment extends StatefulWidget {
   const VehicleRequirment({super.key});

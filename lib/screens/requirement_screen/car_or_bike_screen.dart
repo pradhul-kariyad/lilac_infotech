@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
 import 'package:lilac_infotech/screens/requirement_screen/requirement_screen.dart';
 
-class CarBike extends StatelessWidget {
-  const CarBike({super.key});
+class CarOrBikeScreen extends StatelessWidget {
+  const CarOrBikeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

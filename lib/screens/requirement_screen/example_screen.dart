@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
 import 'package:lilac_infotech/core/widgets/my_button/my_button.dart';
-import 'package:lilac_infotech/screens/requirement_screen/car_bike.dart';
+import 'package:lilac_infotech/screens/requirement_screen/car_or_bike_screen.dart';
 import 'package:lilac_infotech/screens/vehicle_requirment/vehicle_requirment.dart';
 
 class ExampleScreen extends StatefulWidget {
@@ -27,7 +27,7 @@ class _ExampleScreenState extends State<ExampleScreen> {
               print('Back button');
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) {
-                return CarBike();
+                return CarOrBikeScreen();
               }));
             },
             child: Image(image: AssetImage('assets/images/arrow-left.png'))),

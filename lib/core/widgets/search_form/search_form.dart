@@ -18,9 +18,6 @@ class SearchForm extends StatelessWidget {
                 width: 330.w,
                 child: TextFormField(
                   onChanged: (value) {},
-                  // validator: validator,
-                  // obscureText: obscureText,
-                  // controller: controller,
                   decoration: InputDecoration(
                     prefixIcon:
                         IconButton(onPressed: () {}, icon: Icon(Icons.search)),

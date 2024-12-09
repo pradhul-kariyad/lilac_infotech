@@ -22,15 +22,9 @@ class _YearFormState extends State<YearForm> {
   void initState() {
     super.initState();
     _generateYears();
-    // If controller has a value, set it as the selected year
     if (widget.controller?.text.isNotEmpty ?? false) {
       selectedYear = widget.controller?.text;
     }
-  }
-
-  void _generateYears() {
-    final currentYear = DateTime.now().year;
-    years = List.generate(15, (index) => (currentYear - index).toString());
   }
 
   @override
@@ -121,5 +115,12 @@ class _YearFormState extends State<YearForm> {
         ),
       ],
     );
+  }
+
+  void _generateYears() {
+    final currentYear = DateTime.now().year;
+    years = List.generate(15, (index) {
+      return (currentYear - index).toString();
+    });
   }
 }

@@ -39,15 +39,15 @@ class Data {
   String? dealPrice;
   int? isNewArrival;
   int? isPopular;
-  String? vehicleStatus; // Changed to handle type conversion
-  String? isVerified; // Changed to handle type conversion
+  String? vehicleStatus; 
+  String? isVerified;
   String? totalAmount;
   String? createdAt;
   String? location;
   String? kmDriven;
   int? listedDays;
   bool? isBooked;
-  String? bookingId; // Changed to handle type conversion
+  String? bookingId; 
   List<Images>? images;
   VehicleType? vehicleType;
   VehicleType? fuelType;
@@ -99,15 +99,15 @@ class Data {
     isNewArrival = json['is_new_arrival'];
     isPopular = json['is_popular'];
     vehicleStatus =
-        json['vehicle_status']?.toString(); // Handle type conversion
-    isVerified = json['is_verified']?.toString(); // Handle type conversion
+        json['vehicle_status']?.toString();
+    isVerified = json['is_verified']?.toString(); 
     totalAmount = json['total_amount']?.toString();
     createdAt = json['created_at'];
     location = json['location'];
     kmDriven = json['km_driven']?.toString();
     listedDays = json['listed_days'];
     isBooked = json['is_booked'];
-    bookingId = json['booking_id']?.toString(); // Handle type conversion
+    bookingId = json['booking_id']?.toString(); 
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {

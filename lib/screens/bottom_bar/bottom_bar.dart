@@ -5,7 +5,7 @@ import 'package:lilac_infotech/core/colors/colors.dart';
 import 'package:lilac_infotech/core/widgets/new_navigation/new_navigation.dart';
 import 'package:lilac_infotech/screens/empty_screen/empty_screen.dart';
 import 'package:lilac_infotech/screens/home/home_page.dart';
-import 'package:lilac_infotech/screens/requirement_screen/car_bike.dart';
+import 'package:lilac_infotech/screens/requirement_screen/car_or_bike_screen.dart';
 import 'package:lilac_infotech/screens/requirement_screen/requirement_screen.dart';
 import 'package:lilac_infotech/screens/total_vehicle/total_vehicle.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +26,7 @@ class BottomBarScreen extends StatelessWidget {
             HomePage(),
             EmptyScreen(),
             EmptyScreen(),
-            CarBike(),
+            CarOrBikeScreen(),
             EmptyScreen(),
           ];
 

@@ -23,17 +23,18 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.only(
                   left: 15.w, right: 15.w, top: 48, bottom: 15.h),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image(
-                        image: AssetImage('assets/images/menu.png'),
-                        width: 28.w,
-                        height: 28.h),
-                    Image(
-                        image: AssetImage('assets/images/notification.png'),
-                        width: 28.w,
-                        height: 28.h),
-                  ]),
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image(
+                      image: AssetImage('assets/images/menu.png'),
+                      width: 28.w,
+                      height: 28.h),
+                  Image(
+                      image: AssetImage('assets/images/notification.png'),
+                      width: 28.w,
+                      height: 28.h),
+                ],
+              ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -76,18 +77,102 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: Row(
                 children: [
-                  HomeRow(
-                    img: 'assets/images/fi_493808.png',
-                    count: '25',
-                    name: 'C2B Concept',
-                    color: Color(0xffCE3636),
+                  InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(
+                              'The page is empty',
+                              style: TextStyle(
+                                  color: maroon,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.sp),
+                            ),
+                            content: Text(
+                              'Please select another page.',
+                              style: TextStyle(
+                                  color: maroon,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15.sp),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  'OK',
+                                  style: TextStyle(
+                                    color: maroon,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: HomeRow(
+                      img: 'assets/images/fi_493808.png',
+                      count: '25',
+                      name: 'C2B Concept',
+                      color: Color(0xffCE3636),
+                    ),
                   ),
                   SizedBox(width: 15.w),
-                  HomeRow(
-                    img: 'assets/images/080---Car-Sale.png',
-                    count: '35',
-                    name: 'Vehicle for Sale',
-                    color: Color(0xff3645CE),
+                  InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(
+                              'The page is empty',
+                              style: TextStyle(
+                                  color: maroon,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.sp),
+                            ),
+                            content: Text(
+                              'Please select another page.',
+                              style: TextStyle(
+                                  color: maroon,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15.sp),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  'OK',
+                                  style: TextStyle(
+                                    color: maroon,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: HomeRow(
+                      img: 'assets/images/080---Car-Sale.png',
+                      count: '35',
+                      name: 'Vehicle for Sale',
+                      color: Color(0xff3645CE),
+                    ),
                   ),
                 ],
               ),

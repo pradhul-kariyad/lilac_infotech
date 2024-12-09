@@ -25,24 +25,12 @@ class _FuelFormState extends State<FuelForm> {
   @override
   void initState() {
     super.initState();
-    // Initialize the controller with a default value if it has a value
     if (widget.controller != null) {
-      // Check if the controller already has a value, if so use it to set the selectedFuel
       selectedFuel = widget.controller?.text == '1'
           ? 'Petrol'
           : widget.controller?.text == '2'
               ? 'Diesel'
-              : null; // Default to null if not provided
-    }
-  }
-
-  void _onFuelChanged(String? newValue) {
-    setState(() {
-      selectedFuel = newValue;
-    });
-    // Update the controller value with corresponding numeric value
-    if (widget.controller != null) {
-      widget.controller?.text = newValue == 'Petrol' ? '1' : '2';
+              : null;
     }
   }
 
@@ -51,7 +39,6 @@ class _FuelFormState extends State<FuelForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Fuel Label
         Padding(
           padding:
               EdgeInsets.only(left: 17.w, right: 15.w, bottom: 5.h, top: 15.h),
@@ -80,7 +67,6 @@ class _FuelFormState extends State<FuelForm> {
           ),
         ),
 
-        // Dropdown
         Container(
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: DropdownButtonFormField<String>(
@@ -132,5 +118,14 @@ class _FuelFormState extends State<FuelForm> {
         ),
       ],
     );
+  }
+
+  void _onFuelChanged(String? newValue) {
+    setState(() {
+      selectedFuel = newValue;
+    });
+    if (widget.controller != null) {
+      widget.controller?.text = newValue == 'Petrol' ? '1' : '2';
+    }
   }
 }

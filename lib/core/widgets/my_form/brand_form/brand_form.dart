@@ -112,8 +112,6 @@ class _BrandFormState extends State<BrandForm> {
             onChanged: (String? newValue) {
               setState(() {
                 selectedBrand = newValue;
-
-               
                 final selectedBrandData = brandProvider.brandModel.data?.brands
                     ?.firstWhere((brand) => brand.name == newValue);
                 widget.controller?.text =
@@ -124,11 +122,11 @@ class _BrandFormState extends State<BrandForm> {
         ),
         if (brandProvider.isloading)
           Padding(
-              padding: EdgeInsets.only(top: 10.h),
-              child: Center(
-                child:
-                    CircularProgressIndicator(color: maroon, strokeAlign: -5),
-              )),
+            padding: EdgeInsets.only(top: 10.h),
+            child: Center(
+              child: CircularProgressIndicator(color: maroon, strokeAlign: -5),
+            ),
+          ),
       ],
     );
   }

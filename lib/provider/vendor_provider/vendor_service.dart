@@ -20,7 +20,7 @@ class VendorService {
     );
 
     if (response.statusCode == 200) {
-      log('VehicleRequirment Successful');
+      log('VendorService Successful');
       log('${response.body}');
 
       return VendorModel.fromJson(json.decode(response.body));

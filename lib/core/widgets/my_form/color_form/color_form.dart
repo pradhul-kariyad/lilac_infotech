@@ -31,30 +31,17 @@ class _ColorFormState extends State<ColorForm> {
   void initState() {
     super.initState();
 
-    // Initialize `selectedColor` based on `controller` value
     if (widget.controller != null && widget.controller!.text.isNotEmpty) {
       selectedColor = colorToIdMap.entries
           .firstWhere(
             (entry) => entry.value == widget.controller!.text,
-            orElse: () => MapEntry('', ''), // Handles unmatched cases
+            orElse: () => MapEntry('', ''),
           )
           .key;
     }
 
-    // Ensure selectedColor matches the `colors` list
     if (!colors.contains(selectedColor)) {
       selectedColor = null;
-    }
-  }
-
-  void _onColorChanged(String? newValue) {
-    setState(() {
-      selectedColor = newValue;
-    });
-
-    // Update the controller with the selected color's ID
-    if (widget.controller != null && newValue != null) {
-      widget.controller!.text = colorToIdMap[newValue] ?? '';
     }
   }
 
@@ -142,5 +129,15 @@ class _ColorFormState extends State<ColorForm> {
         ),
       ],
     );
+  }
+
+  void _onColorChanged(String? newValue) {
+    setState(() {
+      selectedColor = newValue;
+    });
+
+    if (widget.controller != null && newValue != null) {
+      widget.controller!.text = colorToIdMap[newValue] ?? '';
+    }
   }
 }

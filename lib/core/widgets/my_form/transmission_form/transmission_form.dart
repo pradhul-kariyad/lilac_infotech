@@ -20,33 +20,22 @@ class _TransmissionFormState extends State<TransmissionForm> {
   @override
   void initState() {
     super.initState();
-    // Initialize the controller with the default value
     if (widget.controller != null) {
       if (widget.controller!.text.isNotEmpty) {
         selectedTransmission =
             widget.controller!.text == '1' ? 'Automatic' : 'Manual';
       } else {
         selectedTransmission = 'Automatic';
-        widget.controller!.text = '1'; // Default value for Automatic
+        widget.controller!.text = '1';
       }
     }
   }
 
-  void _updateSelection(String transmission) {
-    setState(() {
-      selectedTransmission = transmission;
-    });
-
-    // Update the controller value with corresponding numeric value
-    if (widget.controller != null) {
-      widget.controller!.text = transmission == 'Automatic' ? '1' : '2';
-    }
-  }
-
-  // Helper method to create the Transmission options widget
   Widget _buildTransmissionOption(String label) {
     return InkWell(
-      onTap: () => _updateSelection(label),
+      onTap: () {
+        _updateSelection(label);
+      },
       child: Container(
         width: 160.w,
         height: 43.h,
@@ -110,15 +99,12 @@ class _TransmissionFormState extends State<TransmissionForm> {
               EdgeInsets.only(bottom: 1.h, top: 2.h, left: 15.w, right: 15.w),
           child: Row(
             children: [
-              // Automatic Option
               _buildTransmissionOption('Automatic'),
               SizedBox(width: 10.w),
-              // Manual Option
               _buildTransmissionOption('Manual'),
             ],
           ),
         ),
-        // Validation error message (if applicable)
         Padding(
           padding: EdgeInsets.only(left: 17.w, right: 15.w, top: 5.h),
           child: Text(
@@ -132,5 +118,15 @@ class _TransmissionFormState extends State<TransmissionForm> {
         ),
       ],
     );
+  }
+
+  void _updateSelection(String transmission) {
+    setState(() {
+      selectedTransmission = transmission;
+    });
+
+    if (widget.controller != null) {
+      widget.controller!.text = transmission == 'Automatic' ? '1' : '2';
+    }
   }
 }

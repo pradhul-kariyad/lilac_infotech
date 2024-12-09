@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
 import 'package:lilac_infotech/core/widgets/my_button/my_button.dart';
 import 'package:lilac_infotech/provider/vendor_provider/vendor_provider.dart';
-import 'package:lilac_infotech/screens/requirement_screen/car_bike.dart';
+import 'package:lilac_infotech/screens/requirement_screen/car_or_bike_screen.dart';
 import 'package:lilac_infotech/screens/vehicle_requirment/vehicle_requirment.dart';
 
 class RequirementScreen extends StatefulWidget {
@@ -85,12 +85,17 @@ class _RequirementScreenState extends State<RequirementScreen> {
           return Column(
             children: [
               Expanded(
-                child: ListView.builder(
-                  itemCount: vendorData.length,
-                  itemBuilder: (context, index) {
-                    final data = vendorData[index];
-                    return RequirementItem(data: data);
-                  },
+                child: RefreshIndicator(
+                  onRefresh: _refresh,
+                  color: maroon,
+                  backgroundColor: white,
+                  child: ListView.builder(
+                    itemCount: vendorData.length,
+                    itemBuilder: (context, index) {
+                      final data = vendorData[index];
+                      return RequirementItem(data: data);
+                    },
+                  ),
                 ),
               ),
               Padding(
@@ -111,6 +116,10 @@ class _RequirementScreenState extends State<RequirementScreen> {
         },
       ),
     );
+  }
+
+  Future<void> _refresh() async {
+    await Provider.of<VendorProvider>(context, listen: false).getAllPosts();
   }
 }
 
@@ -184,7 +193,7 @@ class _RequirementItemState extends State<RequirementItem> {
           ),
           Positioned(
             left: 275.w,
-            bottom: 2.h,
+            bottom: 0.h,
             child: Transform.scale(
               scale: 0.6.sp,
               child: Switch(

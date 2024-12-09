@@ -15,8 +15,10 @@ import 'package:provider/provider.dart';
 
 class VehicleDetailsScreen extends StatefulWidget {
   final String name;
+  final String days;
   final dynamic vehicleId;
-  const VehicleDetailsScreen({super.key, this.vehicleId, required this.name});
+  const VehicleDetailsScreen(
+      {super.key, this.vehicleId, required this.name, required this.days});
 
   @override
   State<VehicleDetailsScreen> createState() => _VehicleDetailsScreenState();
@@ -33,22 +35,6 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
           Provider.of<VehicleDetailsProvider>(context, listen: false);
       provider.fetchVehicleDetails(widget.vehicleId);
     });
-  }
-
-  String _calculateListedDuration(String createdAt) {
-    final createdDate = DateTime.parse(createdAt);
-    final currentDate = DateTime.now();
-    final difference = currentDate.difference(createdDate);
-
-    if (difference.inDays > 0) {
-      return '${difference.inDays} days ago';
-    } else if (difference.inHours > 0) {
-      return '${difference.inHours} hours ago';
-    } else if (difference.inMinutes > 0) {
-      return '${difference.inMinutes} minutes ago';
-    } else {
-      return 'Just now';
-    }
   }
 
   @override
@@ -89,9 +75,9 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
             );
           }
 
-          // final name = vehicleData['vehicle_type'] != null
-          //     ? vehicleData['vehicle_type']['name'] ?? 'Name not available'
-          //     : vehicleData['name'] ?? 'Name not available';
+          final name = vehicleData['vehicle_type'] != null
+              ? vehicleData['vehicle_type']['name'] ?? 'Name not available'
+              : vehicleData['name'] ?? 'Name not available';
           final price = vehicleData['price'] ?? 'Not available';
           final color = vehicleData['color'] ?? 'Black';
           final year = vehicleData['year'] ?? 'Year not available';
@@ -115,7 +101,7 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
           final insuranceValidity =
               vehicleData['insurance_validity'] ?? 'Not available';
           final createdAt = vehicleData['created_at'] ?? '';
-          final _listedDuration = _calculateListedDuration(createdAt);
+          // final _listedDuration = _calculateListedDuration(createdAt);
 
           final initialImageUrl =
               (vehicleData['images'] as List?)?.isNotEmpty == true
@@ -123,6 +109,7 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
                   : null;
 
           final displayImageUrl = selectedImageUrl ?? initialImageUrl;
+          final listedDays = vehicleData['listed_days'] ?? 'Not available';
 
           return Stack(
             children: [
@@ -209,6 +196,7 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
+                                      // name.toString(),
                                       widget.name,
                                       style: TextStyle(
                                           color: black,
@@ -308,7 +296,9 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
                                 ),
                                 SizedBox(height: 5.h),
                                 Text(
-                                  "Listed ${_listedDuration.toString()}",
+                                  // widget.days,
+                                  "Listed $listedDays days ago",
+                                  // "Listed ${_listedDuration.toString()}",
                                   style: TextStyle(
                                       color: Color(0xff6F6C7A),
                                       fontFamily: 'Poppins',
@@ -573,4 +563,20 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
       selectedImageUrl = newImageUrl;
     });
   }
+
+  // String _calculateListedDuration(String createdAt) {
+  //   final createdDate = DateTime.parse(createdAt);
+  //   final currentDate = DateTime.now();
+  //   final difference = currentDate.difference(createdDate);
+
+  //   if (difference.inDays > 0) {
+  //     return '${difference.inDays} days ago';
+  //   } else if (difference.inHours > 0) {
+  //     return '${difference.inHours} hours ago';
+  //   } else if (difference.inMinutes > 0) {
+  //     return '${difference.inMinutes} minutes ago';
+  //   } else {
+  //     return 'Just now';
+  //   }
+  // }
 }
