@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lilac_infotech/core/models/vendor_model/vendor_model.dart';
-import 'package:lilac_infotech/screens/bottom_bar/bottom_bar.dart';
+import 'package:lilac_infotech/screens/bottom_bar/bottom_ba.dart';
 import 'package:provider/provider.dart';
 import 'package:lilac_infotech/core/colors/colors.dart';
 import 'package:lilac_infotech/core/widgets/my_button/my_button.dart';
